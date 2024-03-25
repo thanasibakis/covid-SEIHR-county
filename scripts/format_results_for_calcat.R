@@ -35,14 +35,15 @@ posterior_predictive_LEMMA_format <-
   )) %>%
   select(-c(.width, value_type)) %>%
   pivot_wider(names_from = name, values_from = value) %>%
-  rename(hosp_census_with_covid = hospitalizations,
-         deaths = new_deaths,
-         cases = new_cases,
-         cumulative_new_deaths = cumulative_deaths) %>%
-  left_join(initialization_values %>%
-              select(county, initial_cumulative_deaths = D)) %>%
-  mutate(cumulative_deaths = cumulative_new_deaths + initial_cumulative_deaths) %>%
-  select(-c(cumulative_new_deaths, initial_cumulative_deaths))
+  rename(hosp_census_with_covid = hospitalizations)
+  # rename(hosp_census_with_covid = hospitalizations,
+  #        deaths = new_deaths,
+  #        cases = new_cases,
+  #        cumulative_new_deaths = cumulative_deaths) %>%
+  # left_join(initialization_values %>%
+  #             select(county, initial_cumulative_deaths = D)) %>%
+  # mutate(cumulative_deaths = cumulative_new_deaths + initial_cumulative_deaths) %>%
+  # select(-c(cumulative_new_deaths, initial_cumulative_deaths))
 
 results_calcat_format <-
   left_join(posterior_predictive_LEMMA_format,

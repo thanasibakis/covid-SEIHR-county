@@ -126,9 +126,9 @@ prob = ODEProblem{true}(seihricud_ode_log!,
 
     for i in 1:l_obstimes
         data_hospitalizations[i] ~ NegativeBinomial2(hospitalizations_mean[i], ϕ_hosp)
-        data_new_cases[i] ~ NegativeBinomial2(new_cases_mean[i], ϕ_cases)
+        # data_new_cases[i] ~ NegativeBinomial2(new_cases_mean[i], ϕ_cases)
         data_icu[i] ~ NegativeBinomial2(icu_mean[i], ϕ_icu)
-        data_new_deaths[i] ~ NegativeBinomial2(new_deaths_mean[i], ϕ_deaths)
+        # data_new_deaths[i] ~ NegativeBinomial2(new_deaths_mean[i], ϕ_deaths)
     end
 
     # Generated quantities

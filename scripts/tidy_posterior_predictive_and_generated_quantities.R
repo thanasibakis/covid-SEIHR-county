@@ -85,29 +85,29 @@ tidy_generated_quantities_dir <- function(dir_path) {
 tidy_predictive_file <- function(file_path) {
   all_predictive_wide <- read_csv(file_path)
 
-  cumulative_deaths_summary <-
-    all_predictive_wide %>%
-    select(iteration, chain, starts_with("data_new_deaths")) %>%
-    pivot_longer(-c(iteration, chain)) %>%
-    mutate(
-      time = name %>%
-        str_extract("(?<=\\[)\\d+(?=\\])") %>%
-        as.numeric()
-    ) %>%
-    mutate(name = if_else(
-      str_detect(name, "\\[\\d+\\]"),
-      name %>%
-        str_extract("^.+(?=\\[)") %>%
-        str_remove("data_"),
-      name
-    )) %>%
-    group_by(iteration, chain) %>%
-    mutate(value = cumsum(value)) %>%
-    ungroup() %>%
-    mutate(name = "cumulative_deaths") %>%
-    select(-c(iteration, chain)) %>%
-    group_by(name, time) %>%
-    median_qi(.width = ci_widths)
+  # cumulative_deaths_summary <-
+  #   all_predictive_wide %>%
+  #   select(iteration, chain, starts_with("data_new_deaths")) %>%
+  #   pivot_longer(-c(iteration, chain)) %>%
+  #   mutate(
+  #     time = name %>%
+  #       str_extract("(?<=\\[)\\d+(?=\\])") %>%
+  #       as.numeric()
+  #   ) %>%
+  #   mutate(name = if_else(
+  #     str_detect(name, "\\[\\d+\\]"),
+  #     name %>%
+  #       str_extract("^.+(?=\\[)") %>%
+  #       str_remove("data_"),
+  #     name
+  #   )) %>%
+  #   group_by(iteration, chain) %>%
+  #   mutate(value = cumsum(value)) %>%
+  #   ungroup() %>%
+  #   mutate(name = "cumulative_deaths") %>%
+  #   select(-c(iteration, chain)) %>%
+  #   group_by(name, time) %>%
+  #   median_qi(.width = ci_widths)
 
   non_cumulative_predictive_summary <-
     all_predictive_wide %>%
@@ -131,7 +131,7 @@ tidy_predictive_file <- function(file_path) {
 
   bind_rows(
     non_cumulative_predictive_summary,
-    cumulative_deaths_summary
+    # cumulative_deaths_summary
   ) %>%
     left_join(time_date_key) %>%
     select(name, date, everything(), -time) %>%
