@@ -9,8 +9,7 @@
 #SBATCH --out=log/%x.%A.out
 #SBATCH --array=1-64
 
-#module purge
-cd /home/abakis/git/covid_SEIHR_county
+cd /home/abakis/git/covid-SEIHR-county
 
 if [ $SLURM_ARRAY_TASK_ID == 1 ]; then
 sbatch --depend=afterany:$SLURM_ARRAY_JOB_ID slurm_submissions/4_tidy_pp_gq.sh

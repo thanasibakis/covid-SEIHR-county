@@ -8,9 +8,7 @@
 #SBATCH --error=log/%x.%A.err
 #SBATCH --out=log/%x.%A.out
 
-#module purge
-#module load R/4.2.1
-cd /home/abakis/git/covid_SEIHR_county
+cd /home/abakis/git/covid-SEIHR-county
 
 Rscript scripts/pull_case_hospitalizations_data.R
 

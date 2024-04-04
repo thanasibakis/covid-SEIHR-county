@@ -13,6 +13,6 @@
 
 #module purge
 #module load R/4.2.1
-cd /home/abakis/git/covid_SEIHR_county
+cd /home/abakis/git/covid-SEIHR-county
 
 Rscript --no-save  --no-save scripts/find_overdisp_priors.R $SLURM_ARRAY_TASK_ID

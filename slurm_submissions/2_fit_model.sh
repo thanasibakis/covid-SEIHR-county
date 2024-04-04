@@ -12,8 +12,7 @@
 #SBATCH --array=1-64
 #SBATCH --exclude=stats-5
 
-#module purge
-cd /home/abakis/git/covid_SEIHR_county
+cd /home/abakis/git/covid-SEIHR-county
 
 if [ $SLURM_ARRAY_TASK_ID == 1 ]; then
 sbatch --depend=afterany:$SLURM_ARRAY_JOB_ID slurm_submissions/3_gen_pp_gq.sh
